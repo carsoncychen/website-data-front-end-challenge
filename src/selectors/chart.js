@@ -4,6 +4,10 @@ import { getSelectedLanguages } from "./language";
 
 const selectData = state => state.chart.data;
 
+const hasMatchingLanguageTag = (languageName, tags) => _.find(tags, (tag) => tag.name === languageName)
+
+const sumViews = websiteViews => _.reduce(websiteViews, (memo, { count }) => memo + parseInt(count), 0)
+
 /**
  * Group total websites views by language.
  *
@@ -14,13 +18,32 @@ const selectData = state => state.chart.data;
  * }>
  * @param languages Array<{name: string, displayed: bool}>
  *
- * Return: { language: string, views: number }
+ * Return: Array<{ language: string, views: number }>
  */
 export const groupByLanguage = createSelector(
   [selectData, getSelectedLanguages],
   (data, languages) => {
     // TODO: Implement
-    return;
+    const groupedLanguages = [];
+
+    _.each(languages, ({ name, displayed }) => {
+      if (!displayed) return;
+
+      let views = 0;
+
+      _.each(data, ({ tags, website_views: websiteViews }) => {
+        if (hasMatchingLanguageTag(name, tags)) {
+          views += sumViews(websiteViews)
+        }
+      })
+
+      groupedLanguages.push({
+        language: name,
+        views
+      })
+    })
+
+    return groupedLanguages;
   }
 );
 
