@@ -13,6 +13,8 @@ function App() {
   });
 
   return (
+    // Using div with class name time_series does not seem to have any purpose.
+    // Consider using fragment <></> to avoid adding additional DOM element without any functionality.
     <div className={"time_series"}>
       <header className={styles.time_series__header}>
         <Languages />

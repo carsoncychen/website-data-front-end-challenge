@@ -18,8 +18,21 @@
 
 /* TODO */
 .header__text {
+  display: flex;
+  font-size: 30px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
 }
 
 /* TODO */
 .header__label {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 1);
+  top: -10px;
+  left: 15px;
+  width: 50px;
 }
